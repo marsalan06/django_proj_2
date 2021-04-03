@@ -1,0 +1,29 @@
+1) created project blog by django-admin startproject blog
+2) created app by pyhton manage.py startapp posts
+3) before creating superuser python manage.py migrate 
+4) then create super user by python manage.py createsuperuser
+5) register the app in settings.py of blog
+    'posts.apps.PostsConfig' is used 
+    https://stackoverflow.com/questions/41933615/proper-way-to-register-apps-in-django
+6) time zone in settings.py will be Asia/Karachi
+
+Creating Models in Posts
+1) from django.db.models import fields
+2) create models.Model class with fields to define the data we need from the user
+3) create PostsForms with meta class to create the form and get data 
+
+creating html template
+1) this time each app will have its own template folder
+2) created layout.html and index.html with {{form}} jinja
+
+create view in views.py 
+1) import Posts and PostsForms from models 
+2) create a route with object of PostsForms and render the index.html template
+
+create urls.py in posts 
+1) import the posts.views, create the urlpattern list in it 
+2) in the urls.py of blog import include and add path 
+    Errors that accur are of pylance import so inplace of posts.models use .models 
+    and names of Post and PostForms create multiple import error so use Post_Form instead 
+    https://stackoverflow.com/questions/50424524/django-cannot-import-name-model
+
