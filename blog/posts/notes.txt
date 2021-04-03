@@ -27,3 +27,31 @@ create urls.py in posts
     and names of Post and PostForms create multiple import error so use Post_Form instead 
     https://stackoverflow.com/questions/50424524/django-cannot-import-name-model
 
+
+3) create the route register in blog urls.py 
+
+Views.py file of posts 
+1) create validation use form.save() instance
+
+Make migrations and migrate before using the form because no table exists 
+
+2) in views.py file to get the data use the Post.object.all() method to get all the data and pass it as an 
+arrgument in the render function 
+4) in the html code after form run the for loop on rows to show data 
+
+
+For MYSQl usage:
+1) \sql
+2)\connect root@localhost:3306
+3)create database blog_db;
+{{
+    4)create table posts (title varchar(50) not null, content varchar(300), datestamp DATE ,timestamp time);
+Dont do this first check tables in blog_db after makemigrations}} 
+
+
+5) edit in settings.py in database
+6) python manage.py makemigrations 
+    this creates a model based table its self , appname_models
+
+having an error of MySQL Error 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+    go to run ==> service.msc ==> search MySQL ==> run service ==> go to shell again and check  
