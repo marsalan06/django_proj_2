@@ -3,7 +3,27 @@
     <form action="/" method="POST">
         {%csrf_token%}
         <div class="form-row">
+            
+            {% if form.title.errors %} <!--Field error statements-->
+                {% for err_title in form.title.errors %}
+                    <p>Title {{err_title|escape}}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.content.errors %}
+                {% for err_content in form.content.errors %}
+                    <p>content {{err_content|escape}}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %} <!--Non field error statement-->
+                {%for errors in form.non_field_errors%}
+                    <p>{{errors|escape}}</p> <!--dispalays without tags-->
+                {% endfor %}
+            {% endif %}
+
             {%for f in form%}
+            <p> {{f.label_tag}}</p>
             <p>{{f}}</p>
             {% endfor %}
         </div>
@@ -17,6 +37,13 @@
             <p>
                 {{row.content}} - <small> {{row.created_at}} </small>
             </p>
+        {%endfor%}
+    </div>
+    <div>
+        {%for cat in cats%}
+            <h2>
+                {{cat.title}} -<small>{{cat.created_at}}</small>
+            </h2>
         {%endfor%}
     </div>
 {% endblock %}

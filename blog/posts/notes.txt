@@ -55,3 +55,47 @@ Dont do this first check tables in blog_db after makemigrations}}
 
 having an error of MySQL Error 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061)
     go to run ==> service.msc ==> search MySQL ==> run service ==> go to shell again and check  
+
+
+DJANGO MODEL FORM validations
+Feild Error validation:
+in models.py --> from django.core import validators --> for validation
+we can use the validators on either the model or form, but in form we didnt describe any feild type so we
+use it on models, in title we will now use a list of validators. we need an error msg to show why the data
+wasnt excepted , so in index.py we will place errors 
+using the jinija code for error checking, 
+            {% if form.title.errors %}
+                {% for err_title in form.title.errors %}
+                    <p>{{err_title|escape}}</p>
+                {{% endfor %}}
+            {{% endif %}}
+
+custom validators also are used, we create a function and raise a custom error using 
+validators.ValidationError("custom msg"), and pass it in the validators list 
+
+
+Non Feild Error validation:
+non feild errors are raised by the forms, we create a def clean(self) method to check as dictionary 
+key value pairs for passed parameters, the error raised are through the clean method, 
+
+we override the clean method and use the fields list to genarate key value pairs
+we use a single jinga code line, 
+
+
+Django comes with an admin pannel, settings of this pannel are provided in admin.py 
+it has django.contrib import admin, import the model of app (posts), register it in admin.py using 
+admin.site.register(POSTS)
+
+but before login, migrate first, create a superuser to login ,when we login we see all objects of models ,
+in models place a def __str__ method, this allows the superuser to edit the posts, 
+but for the django admin panel the form validation wont work so place validation on the model itself,
+
+We now also create a new model named category with a title feild, 
+python manage.py make makemigrations, run it , apply migrations by python manage.py migrate, run mysql show tables,
+shows posts_category, we add category through admin panel that doesnt depend on views.py and check in mysql
+select * all from posts_category, to see this data , we just add category.objects.all() to get the data and pass
+it in return statement.  
+
+
+
+
