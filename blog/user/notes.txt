@@ -1,0 +1,44 @@
+we created a new app for the front end of the user authentication part, python mange.py startapp user
+in views.py we create views of login and register , we render the concerned html files through it, htmls 
+are registered in the urls.py file. In the urls.py we will use the path method to link the views with the 
+urls, 
+To store the htmls we will create the templates folder in the user and place the html files in it,but 
+all html require a common html layout, thus we will create a new folder in the templates containing 
+a new layout.html to avoid confusion with the posts's layout.html
+
+for the front end we'll use the django's own admin panel front end, copy it in the layout.html, and copy
+the body in login and register.html, we'll register the app in the settings.py, user.apps.UserConfig is
+placed in the installed apps list, this allows the app.py file to have the user app to be registered by
+itself, 
+In the urls.py of blog add the user with path('user/',include('user.urls)), 
+
+Using django's own forms to create user of the admin panel, that are in the admin panel,
+1) login and register htmls were created using htmk code, but now we'll use the model forms that are
+present in the django adminstration panel, this is differnt than the posts's model.form that we added in
+models.py of the posts app, 
+2) from login and register html files remove the code before the button, 
+3) in views.py we'll import django.contrib.auth.forms with UserCreationForm and AuthenticationForm 
+    UserCreationForm is for creating the user and AuthenticationForm is for login, 
+4) in the login function we create a AuthenticationForm object and use it as a form key value pair
+5) same goes for the UserCreationForm in the register function
+6) placing it in the login and register.html files as a {{form.username}},{{from.password1.lable_tag}}
+    under the form tag {% csrf_token %}
+7) we style it by the css style tag in the layout.html file using .register .form-row #id_password1
+8) same goes for the login.html file, 
+
+Performing validation form
+1) to stop empty form submition in the form of login and register under each <div class="form-row">
+    we add an if case jinja code,
+    {%if form.password1.errors%}
+        {{form.password1.errors}} 
+      {%endif%},
+    this code verifys and validates data entered in multiple scenarios,
+    jinja code doesnt show up in htmls
+2) we create a if case in the register functon in views.py, if request.method=="POST": and in it 
+    we place the form.is_valid() check
+3) if we want a msg to be displayed in accordance to the form used we can use the settings.py's
+    installed_app of 'django.contrib.messasges',  and the middleware of MessageMiddleware
+4) in views.py of user we can import these messasges from django.contrib.messasges
+    and redirect to the login page
+
+5) in the login.html page we place the messasges check before the login form

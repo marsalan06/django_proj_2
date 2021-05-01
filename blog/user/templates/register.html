@@ -1,0 +1,100 @@
+{%extends 'user/layout.html' %}
+{%block content%}
+
+ <!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+            <h1 id="site-name"><a href="/user/login">Login if existing user</a></h1>
+
+        </div>
+        
+        
+    </div>
+    <!-- END Header -->
+    
+    
+
+    <div class="main shifted" id="main">
+      
+        
+      
+      <div class="content">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="colM">
+          
+          
+          
+
+
+
+
+<div id="content-main">
+
+
+
+<form action="/user/register" method="post" id="reg-form" class="register">
+    {%csrf_token%}
+    <div class="form-row">
+      {%if form.username.errors%}
+        {{form.username.errors}}
+      {%endif%}
+      {{form.username.label_tag}}
+      {{form.username}}
+    </div>
+    <div class="form-row">
+      {%if form.password1.errors%}
+        {{form.password1.errors}}
+      {%endif%}
+      {{form.password1.label_tag}}
+      {{form.password1}} <!--obtained password1 by inspecting the element of password-->
+    </div>
+    <div class="form-row">
+      {%if form.password2.errors%}
+        {{form.password2.errors}}
+      {%endif%}
+      {{form.password2.label_tag}}
+      {{form.password2}} <!--obtained password2 by inspecting the element of retype password-->
+    </div>
+  <!--div class="form-row">
+    
+    <label class="required" for="id_username">Username:</label> <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+  </div>
+  <div class="form-row">
+    
+    <label class="required" for="id_email">Email:</label> <input type="email" name="email" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+  </div>
+  <div class="form-row">
+    
+    <label class="required" for="id_password">Password:</label> <input type="password" name="password" autocomplete="current-password" required id="id_password">
+  </div>
+  <div class="form-row">
+    
+    <label class="required" for="id_rpassword">Retype Password:</label> <input type="password" name="rpassword" autocomplete="current-password" required id="id_rpassword">
+  </div-->
+  
+  
+  <div class="submit-row">
+    <input type="submit" value="Register now">
+  </div>
+</form>
+
+</div>
+
+          
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>
+</div>
+<!-- END Container -->
+{%endblock%}

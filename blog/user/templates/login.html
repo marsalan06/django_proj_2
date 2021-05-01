@@ -1,0 +1,82 @@
+{%extends 'user/layout.html' %}
+{%block content%}
+
+ <!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+            <h1 id="site-name"><a href="/user/register">Go to User Registration</a></h1>
+
+        </div>
+    </div>
+    <!-- END Header -->
+    
+    
+
+    <div class="main shifted" id="main">
+      
+        
+      
+      <div class="content">
+        
+          
+        
+        <!-- Content -->
+        <div id="content" class="colM">
+          
+
+<div id="content-main">
+  {%if messages%}
+  {% for message in messages %}
+    <p>{{message|escape}}</p>
+    {%endfor%}
+  {%endif%}
+  <form action="/user/login" method="post" id="login-form">
+      {%csrf_token%}
+      <div class="form-row">
+        {%if form.username.errors%}
+          {{form.username.errors}}
+        {%endif%} <!--validating empty values of forms-->
+        {{form.username.label_tag}}
+        {{form.username}}
+      </div>
+      <div class="form-row">
+        {%if form.password.errors%}
+          {{form.password.errors}}
+        {%endif%} <!--validating empty values of forms-->
+        {{form.password.label_tag}}
+        {{form.password}} <!--obtained password by inspecting the element of password-->
+      </div>
+
+    <!--div class="form-row">
+      
+      <label class="required" for="id_username">Username:</label> <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+    </div>
+    <div class="form-row">
+      
+      <label class="required" for="id_password">Password:</label> <input type="password" name="password" autocomplete="current-password" required id="id_password">
+      <input type="hidden" name="next" value="/admin/">
+    </div-->
+    
+    
+    <div class="submit-row">
+      <input type="submit" value="Log in">
+    </div>
+  </form>
+
+</div>
+
+          
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>
+</div>
+<!-- END Container -->
+{%endblock%}

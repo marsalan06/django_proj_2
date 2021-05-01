@@ -96,6 +96,24 @@ shows posts_category, we add category through admin panel that doesnt depend on 
 select * all from posts_category, to see this data , we just add category.objects.all() to get the data and pass
 it in return statement.  
 
+using built in autherization and authentication,in settings.py --> INSTALLED_APPS List we have 3 items relating
+to authentication and autherization, .contrib.auth, .contrib.contenttypes, .contrib.sessions , auth is related 
+username and password , contenttypes is for allowed contents, authentication doesnt mean complete autherization
+only superuser can have complete autherization, in admin panel of the django we can create users and group of users
+to have multiple rights, to have our own front end we'll have our own app 
+
+using python manage.py shell command in cli,shell me run from posts.models import Posts , posts=Posts.objects.all()
+to get all posts, posts.objects.get(id=1) to get a particular post with all fields
+
+from django.contrib.auth import authenticate
+user=authenticate(username="arsalan",password="06061997")
+user.is_authenticated --> true
+
+from django.contrib.auth.models import User
+users= User.objects.all()
+users ==> returns arsalan in a query set 
+users.username, users.first_name , users.last_name, users.email, users.password # will be hashed 
+
 
 
 
