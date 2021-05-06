@@ -42,3 +42,23 @@ Performing validation form
     and redirect to the login page
 
 5) in the login.html page we place the messasges check before the login form
+
+for a profile page after login and storing data in sessions
+1) create a profile.html page,
+2) in the views create an if case with the django.contrib.auth's authenticate method
+    to verify the user 
+3) if the user is authenticated and returns true the else case is envoked
+    calling the login method which is named as authorize and redirect to the profile.html
+    by the url user/profile
+4) the user/profile uses the profile function which has a check of request.user.is_authenticated to it in views.py
+     and is registered in urls.py
+5) after login is done and profile is shown we dont want the login form to appear again until we dont logout,
+    therefore we place an else case against the first if(request.method=='POST'): case with the if condition 
+    of getting the user in session, if its loged in or .is_authenticated we just return back to the profile 
+    if not we render the login form,
+6) for creating a logout method we use the same steps
+    a) import the logout as deauth from django.contrib.auth
+    b) create a logout method in views.py and place a redirect to the login form
+    c) in the profile.html created an anchore tag with href to the user/logout method
+    d) in the urls.py register the logout method 
+    
