@@ -62,3 +62,7 @@ for a profile page after login and storing data in sessions
     c) in the profile.html created an anchore tag with href to the user/logout method
     d) in the urls.py register the logout method 
     
+For relations we move to the posts app
+
+
+

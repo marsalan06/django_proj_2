@@ -114,6 +114,30 @@ users= User.objects.all()
 users ==> returns arsalan in a query set 
 users.username, users.first_name , users.last_name, users.email, users.password # will be hashed 
 
-
+After user app we now create relationship api's
+Realtionship apis in models: create relations between models , django project website pe model relationship api 
+usage, 
+1) What is a relationship, normalization of a data base is creating multiple tables linked together to avoid 
+data redundancy and maintain flexiblity, django mvc's relationship api is the most easy and effective as compared
+to other mvc frameworks,
+    a) many to many
+    b) many to one
+    c) one to one relationship 
+first we'll use one to one relationship
+2) in posts app's model.py , we'll create a one to one relationship between posts model and user
+3) in models.py of post we import django.contrib.auth.models.User 
+4) we move the category model above the post model
+5) in the posts model class we add a User entry with the field to be models.OnetoOneField(User,on_delete=models.CASCADE)
+    marked as (A), One to one field acts a forign key but is unique
+6) to fill it in the front end place user in the fields in the PostsForms, (B), for category we didnt create a 
+    front end form, we used the admin panel 
+7) model.CASCADE means you cant delete a user without removing its related fields in this case posts
+8)we deleted the blog_db database and created it and again, makemigrations and migrate,
+9)create superuser, python manage.py createsuperuser --username= --email=
+10) runserver
+11) go to user/register to make couple of users, 
+12) now in the root path we will have the user drop down with users in it
+13) issues that arised
+    a) one to one relationship me we cant post more than once for one user and i fucking tried it for 1 hour
 
 

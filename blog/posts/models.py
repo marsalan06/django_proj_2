@@ -1,8 +1,10 @@
+import django
 from django.db import models
 from django import forms
 from django.db.models import fields #imported this 
 from django.core import validators
-from django.forms.widgets import SelectDateWidget
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 class Posts(models.Model): #created this model field
@@ -12,6 +14,7 @@ class Posts(models.Model): #created this model field
 
     title=models.CharField(validators=[min_len],max_length=255) #validation list provided
     content=models.TextField(validators=[min_len])
+    user=models.OneToOneField(User,on_delete=models.CASCADE,default=1,unique=False) #new user relation entry given (A)
     #if validator not used in models 
 
     created_at=models.DateTimeField(auto_now_add=True)
@@ -43,10 +46,11 @@ class Category(models.Model): #created this model field
 
 
 
+
 class Posts_Form(forms.ModelForm): #to build a form using django and not html
     class Meta: #will get data of the fields=[] only
         model=Posts
-        fields=['title','content']
+        fields=['title','content','user'] #user field added from front end (B)
 
     #this is a non feild validation 
     def clean(self): #for all fields rather than indivual, creates a dictionary   
