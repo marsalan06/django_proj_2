@@ -140,4 +140,13 @@ first we'll use one to one relationship
 13) issues that arised
     a) one to one relationship me we cant post more than once for one user and i fucking tried it for 1 hour
 
+14) we'll go to many to one relationship, models.py, change the OnetoOneField to ForeignKey rest is same (C)
+15) makemigrations and migrate,
+
+16) many to many relationship are used in a case where multiple columns can be used, the post table can place value
+in the user table and vice versa but in one to one and one to many, only the user data was added in post table, but
+in many to many to relationship a seprate table is created to contain the common data between user and post, this 
+table is created by MVC in django, 
+
+
 

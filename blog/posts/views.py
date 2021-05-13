@@ -15,5 +15,5 @@ def index(request):
             # )
             form.save()
             return redirect('/')
-    return render(request,'index.html',{'title':'Add New Post','form':form,'rows':data,'cats':category}) 
+    return render(request,'index.html',{'title':'Add New Post','form':form,'rows':data,'categories':category}) 
     #route rendered, cat has the category data to show , we add this from admin panel 

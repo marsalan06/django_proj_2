@@ -37,13 +37,23 @@
             <p>
                 {{row.content}} - <small> {{row.created_at}}-{{row.user.username}} </small>
             </p>
+            <p>{{row.category.all|join:", "}} </p>
+            <!-- <ul>
+                {%for cat in row.category.all%}
+                    <li>
+                        {{cat}}
+                    </li>
+                {%endfor%}
+            </ul> -->
         {%endfor%}
     </div>
     <div>
-        {%for cat in cats%}
-            <h2>
-                {{cat.title}} -<small>{{cat.created_at}}</small>
-            </h2>
+        <h2> category wise post </h2>
+        {%for cats in categories%}
+            <h4>{{cats.title}}</h4>
+            {%for cat in cats.categories.all%} <!--each category has multiple post related to it the related name argument allows it -->
+                <ul>{{cat}}</ul>
+            {%endfor%}
         {%endfor%}
-    </div>
+    </div-->
 {% endblock %}
