@@ -22,7 +22,10 @@ class Category(models.Model): #created this model field
 
     def __str__(self): #returns object as a string 
         return self.title
-
+    class Meta:
+        db_table='Categories'
+        verbose_name="Category"
+        verbose_name_plural="Categories"
 
 
 class Posts(models.Model): #created this model field
@@ -46,6 +49,11 @@ class Posts(models.Model): #created this model field
 
     def __str__(self): #returns object as a string 
         return self.title
+    
+    class Meta:
+        db_table='Post'
+        verbose_name="Post"
+        verbose_name_plural="Posts"
 
 
 

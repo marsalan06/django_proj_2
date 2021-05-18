@@ -144,9 +144,47 @@ first we'll use one to one relationship
 15) makemigrations and migrate,
 
 16) many to many relationship are used in a case where multiple columns can be used, the post table can place value
-in the user table and vice versa but in one to one and one to many, only the user data was added in post table, but
-in many to many to relationship a seprate table is created to contain the common data between user and post, this 
-table is created by MVC in django, 
+in the user table and vice versa but in one to one and one to many(denoted by M-N), only the user data was added 
+in post table, but in many to many to relationship a seprate table is created to contain 
+the common data between user and post, this table is created by MVC in django, link we are creating 
+defines the relationship placing, we will be creating post with multiple categories, 
+so the relation direction will be posts to categories ,https://www.youtube.com/watch?v=onR_sLhbZ4w, the primary
+key between the new table of many to many relation will be called composite key and the table will not be combined
+with any of the other 2 tables
+
+17) the post to category relation requires the categories to be created before hand, because if we dont than 
+it will be a category to post relation , meaning that we want each post to already have categories when created, in
+vice versa we would have the post created and than asign categories to it 
+18) we created the category feild in the post model with many to many relation, and placed it in the form model bellow (D)
+19) we'll add data to the category table to use them first, and when we migrated after many to many relation we get
+the table posts_posts_category in the main database
+
+20) to add data to the posts_category table we'll use the shell, python manage.py shell ,
+    a) from posts.models import Category
+    b) cat=Category(), cat.title='Computer books', cat.save() #do it as many categories you want
+    c) now when the front add loads the categories list will have data in it , to see in mysql, select * from posts_category;
+21)  now you can create post with the user and categories,
+22) when we check in the mysql, select * from posts_posts_category, we see
+    an index column, table's own id starting from 1 , posts_id obtained from posts_posts that is 7 and category_id
+    which is my selcetion 1 and 2
 
 
-
+Using Meta options:
+1) for customizing database table names through the meta class of models 
+2) meta classes are ways to customize behaviour of the class 
+3) currently the table names are given by django but we can change that by using the meta class in the model classes 
+4) to edit the table names , first delete the data base blog_db and all the migrations from the migrations folders 
+5) in the models.py , in the category model class we add the meta class with argument of db_table="categories"
+6) same in the posts model we add the meta with db_table="posts"
+7) makemigrations and migrate, we now have a table name category, post and post_category (many to many relationship)
+    you can see it in the migration no file's options
+8) create super user , python manage.py createsuperuser --username=Arsalan --email=arsalan.9798@gmail.com and login the admin panel
+9) but still it will a pural problem in names, this will be resolved by verbose_name="category" and verbose_name="post"
+    in the meta class, this doesnt require a makemigrations cycle 
+10) and verbose_name_plural will aid in still pural issues 
+11) to search for more meta options search django meta options, we can use these example odering=['created_at'] or 
+    ['-created_at'] for reverse order it by created_at in both categories and post model
+12) the name of the first section in the admin panel shows AUTHENTICATION AND AUTHORIZATION because its an already 
+    in INSTALLED_APPS, we can customize the app name bellow it which currently shows POSTS taking it from app.py, we 
+    place a verbose_name="Blogging System" in it
+     

@@ -52,6 +52,7 @@
         {%for cats in categories%}
             <h4>{{cats.title}}</h4>
             {%for cat in cats.categories.all%} <!--each category has multiple post related to it the related name argument allows it -->
+            <!--if we remove related_name from the model we'll use cats.posts_set.all in the above for loop-->
                 <ul>{{cat}}</ul>
             {%endfor%}
         {%endfor%}
