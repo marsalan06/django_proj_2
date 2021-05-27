@@ -188,3 +188,69 @@ Using Meta options:
     in INSTALLED_APPS, we can customize the app name bellow it which currently shows POSTS taking it from app.py, we 
     place a verbose_name="Blogging System" in it
      
+
+We have two types of forms, forms.form and forms.ModelForm, A model form must have a model to work from
+the above SearchForm is not tied to a particular model , it is independent and its sole purpose is to 
+generate fields or a field, The main difference between the two is that in forms that are created from forms.ModelForm , 
+we have to declare which model will be used to create our form. 
+https://sayari3.com/articles/5-difference-between-django-formsform-and-formsmodelform/#:~:text=The%20main%20difference%20between%20the,model%20to%20create%20our%20form.
+
+a) to customize our forms we'll use bootstrap,in the layout.html we'll add the style link, google cdnjs twitter and 
+copy the css/bootstrap.min.css link and paste it in the link tag href, reload the page ,
+
+b) in the index.html file we'll place the form in the <div class="form-group"> and remove the <p> tags (A1) 
+
+c) in models.py , Post_Form's meta class we'll add the widgets dictionary (B1)
+
+d) index.html file we'll place the form in the <div class="form-group-d-block"> to make it vertical 
+
+e) we add help_text, error_messages and lables under the widget library and to enable in it front end we'll
+add {{f.help_text}} to show it
+
+Upload files using model forms:
+
+1) when django handles a file upload it uses request.FILES in views.py and encryption type should be placed to allow file to 
+be uploaded , create a static folder in the blog folder 
+2) using GET and POST we can get the file in server and its path in the database 
+3) in the posts app, models.py, we place a new field , thumbnail=models.FileField(upload_to='posts/',null=True), 
+and in post_form we add thumbnail in fields list, as well as place meta class options for it, 
+we added the thumbnail to the meta class too
+
+Created a method with property decorator (c1) to display image if no image is there for default
+https://stackoverflow.com/questions/52342481/valueerror-at-profile-the-image-attribute-has-no-file-associated-with-it
+
+4)in settings.py of the main blog we place root of the static files being uploaded as STATICFILES_DIRS=['static']
+    (A2) and MEDIA_URL='/media/' with MEDIA_ROOT=os.path.join(BASE_DIR, 'media') and in urls.py of blog project 
+    if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+5) The view of the index.html will be automatically be renderd as it is a dynamicallay loaded form 
+6) dont forget add enctype="multipart/form-data" in the form after csrf token in index.html
+place the code as (D1) from 
+https://stackoverflow.com/questions/52342481/valueerror-at-profile-the-image-attribute-has-no-file-associated-with-it
+
+and request.FILESin the def index in views.py 
+7) place file related error in the index.html by copy pasting the above error (B2)
+9) before loading server makemigrations and migrate
+
+11) Using shell to get path of file, python manage.py shell, from posts.models import Posts , p=Posts.object.get(id=3) 
+    #id 3 because it is where img is , post , post.thumbnail, post.thumbnail.url(this will be used for front end),
+    post.thumbnail.path, 
+
+
+Upload multiple files, 
+1) in model place the multiple true and in views run a loop to get the files 
+2)  we will use the postform meta widgets for the thumb_nail as 'multiple':True (AB1)
+3) IN THE views.py we'll use a loop for multiple files, to allow multiple files per particular post we will create
+a new model in one to many relationship for posts and file (AB2) with meta class to rename the table to gallery
+4)makemigrations and migrate
+5)new table created in db 
+6) in views.py import gallery model and we'll use request.FILES.getlist('thumb_nail'), and save it to a variable 
+    (AB3), Loop is run to get the files, save(commit=False) would restrict form to be saved instanly but we'll save it 
+    in a variable 
+7) by running the loop after saving the form we get the data for each file in the gallery table of database 
+8) in index.html we'll show the multiple images appart from the thumb_nail, (AB4)
+
+ 
+
+

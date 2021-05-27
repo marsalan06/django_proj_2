@@ -1,0 +1,85 @@
+{%extends "layout.html"%}
+{%block content%}
+<a href="/">Go to form</a>
+<table class="table table-resonsive">
+    <thead>
+        <tr>
+            <th>
+                title
+            </th>
+            <th>
+                content
+            </th>
+            <th>
+                thumbnail
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                gallery
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in rows%}
+        <tr>
+            <td>
+                <h2>
+                    {{row.title}}
+                </h2>
+            </td>
+            <td>
+                {{row.content}} - <small> {{row.created_at}}-{{row.user.username}} </small>
+            </td>
+            <!--D1-->
+            <td>
+                <p><img src="{% if row.thumb_nail %}
+                                {{ row.thumb_nail.url }}
+                            {% else %}
+                                {{row.get_photo_url}}
+                            {% endif %}" alt="No image" width="50"/> </p>
+            </td>
+            <td>
+                {{row.category.all|join:", "}}
+            </td>
+            <td>
+            <p><h3>Gallery image</h3></p>
+            <p>
+                {%for g in row.gallery_set.all%}
+                    <img src="{% if g.images %}
+                                {{ g.images.url }} 
+                              {% else %}
+                                {{row.get_photo_url}}
+                              {% endif %}" alt="No gallery associated" width="50"/>
+                {%endfor%}
+            </p>
+            </td>
+        </tr>
+    {%endfor%}
+    </tbody>
+</table>
+<h2> category wise post </h2>
+<table class="table table-resonsive">
+    {%for cats in categories%}
+    <thead>
+        <tr>
+            <th>
+                <h1>{{cats.title}}</h1>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for cat in cats.categories.all%} <!--each category has multiple post related to it the related name argument allows it -->
+        <!--if we remove related_name from the model we'll use cats.posts_set.all in the above for loop-->
+        <tr>
+            <td>
+                <li>{{cat}}</li>
+            </td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    {%endfor%}
+</table>
+
+{%endblock%}

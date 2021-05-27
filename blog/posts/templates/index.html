@@ -1,8 +1,9 @@
-{% extends 'layout.html'%}
+{%extends "layout.html"%}
 {% block content%}
-    <form action="/" method="POST">
+    <a href="data/">Go to data</a>
+    <form action="/" method="POST" enctype="multipart/form-data"> <!--file upload requires enctype-->
         {%csrf_token%}
-        <div class="form-row">
+        <div>
             
             {% if form.title.errors %} <!--Field error statements-->
                 {% for err_title in form.title.errors %}
@@ -16,45 +17,25 @@
                 {% endfor %}
             {% endif %}
 
+            <!--FILES related error with name thumbnail(B2)-->
+            {% if form.thumbnail.errors %}
+                {% for err_thumbnail in form.thumbnail.errors %}
+                    <p>thumbnail {{err_thumbnail|escape}}</p>
+                {% endfor %}
+            {% endif %}
+
             {% if form.errors %} <!--Non field error statement-->
                 {%for errors in form.non_field_errors%}
                     <p>{{errors|escape}}</p> <!--dispalays without tags-->
                 {% endfor %}
             {% endif %}
 
-            {%for f in form%}
-            <p> {{f.label_tag}}</p>
+            {%for f in form%} <!--A1-->
+            <p>{{f.label_tag}}</p> 
+            <p>{{f.help_text}}</p>
             <p>{{f}}</p>
             {% endfor %}
         </div>
             <input type="submit" value="Add Post">
     </form>
-    <div>
-        {%for row in rows%}
-            <h2>
-                {{row.title}}
-            </h2>
-            <p>
-                {{row.content}} - <small> {{row.created_at}}-{{row.user.username}} </small>
-            </p>
-            <p>{{row.category.all|join:", "}} </p>
-            <!-- <ul>
-                {%for cat in row.category.all%}
-                    <li>
-                        {{cat}}
-                    </li>
-                {%endfor%}
-            </ul> -->
-        {%endfor%}
-    </div>
-    <div>
-        <h2> category wise post </h2>
-        {%for cats in categories%}
-            <h4>{{cats.title}}</h4>
-            {%for cat in cats.categories.all%} <!--each category has multiple post related to it the related name argument allows it -->
-            <!--if we remove related_name from the model we'll use cats.posts_set.all in the above for loop-->
-                <ul>{{cat}}</ul>
-            {%endfor%}
-        {%endfor%}
-    </div-->
 {% endblock %}
